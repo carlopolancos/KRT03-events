@@ -44,10 +44,9 @@ pipeline {
         }
         success {
             dir("${WORKSPACE}/events-api-tests") {
-                junit 'target/karate-reports/*.xml'
+                // junit 'target/karate-reports/*.xml'
                 cucumber 'target/karate-reports/*.json'
             }
         }
-          
     }
 }

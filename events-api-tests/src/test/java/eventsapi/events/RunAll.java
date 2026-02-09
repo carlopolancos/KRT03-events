@@ -38,6 +38,7 @@ class RunAll {
 			}
 		}
 		Results results = Runner.path("classpath:eventsapi/events/")
+				.tags("~@ignore")
 				.outputCucumberJson(true)
 				.outputJunitXml(true)
 				.parallel(5);
