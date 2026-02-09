@@ -1,3 +1,4 @@
+@subscriptions
 Feature: Match Testing
 
 	Background:
