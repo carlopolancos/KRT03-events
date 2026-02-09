@@ -42,6 +42,12 @@ pipeline {
             bat 'taskkill /f /im java.exe /fi "WINDOWTITLE eq events-api-0.0.1-SNAPSHOT.jar"' // For Windows
             // Or use sh 'pkill -f "events-api-0.0.1-SNAPSHOT.jar"' for Linux/macOS
         }
+        success {
+            dir("${WORKSPACE}/events-api-tests") {
+                junit 'target/karate-reports/*.xml'
+                cucumber 'target/karate-reports/*.json'
+            }
+        }
           
     }
 }
