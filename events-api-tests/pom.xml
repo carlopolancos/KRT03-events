@@ -148,6 +148,28 @@
                     <simulationClass>eventsapi.MySimulation</simulationClass>
                 </configuration>
             </plugin>
+            
+            <plugin>
+			    <groupId>net.masterthought</groupId>
+			    <artifactId>maven-cucumber-reporting</artifactId>
+			    <version>5.7.7</version>
+			    <executions>
+			        <execution>
+			            <id>generate-cucumber-html</id>
+			            <phase>verify</phase>
+			            <goals>
+			                <goal>generate</goal>
+			            </goals>
+			            <configuration>
+			                <projectName>Events API Tests</projectName>
+			                <jsonFiles>
+			                    <param>target/karate-reports/*.json</param>
+			                </jsonFiles>
+			                <outputDirectory>target/karate-html-report</outputDirectory>
+			            </configuration>
+			        </execution>
+			    </executions>
+			</plugin>
         </plugins>
     </build>
 
