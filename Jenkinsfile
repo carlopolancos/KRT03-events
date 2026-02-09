@@ -41,12 +41,26 @@ pipeline {
             // Stop the API process
             bat 'taskkill /f /im java.exe /fi "WINDOWTITLE eq events-api-0.0.1-SNAPSHOT.jar"' // For Windows
             // Or use sh 'pkill -f "events-api-0.0.1-SNAPSHOT.jar"' for Linux/macOS
+
+            // Karate report
+            publishHTML(target: [
+                reportDir: 'events-api-tests/target/karate-reports',
+                reportFiles: 'overview-features.html',
+                reportName: 'Karate Test Report'
+            ])
+
+            // Gatling report
+            publishHTML(target: [
+                reportDir: 'events-api-tests/target/gatling/mysimulation-*',
+                reportFiles: 'index.html',
+                reportName: 'Gatling Performance Report'
+            ])
         }
         success {
-            dir("${WORKSPACE}/events-api-tests") {
-                // junit 'target/karate-reports/*.xml'
-                cucumber 'target/karate-reports/*.json'
-            }
+            // dir("${WORKSPACE}/events-api-tests") {
+            //     // junit 'target/karate-reports/*.xml'
+            //     cucumber 'target/karate-reports/*.json'
+            // }
         }
     }
 }
