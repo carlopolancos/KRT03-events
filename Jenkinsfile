@@ -51,12 +51,17 @@ pipeline {
 
             // Gatling report
             script {
-                def gatlingDir = findFiles(glob: 'events-api-tests/target/gatling/mysimulation-*')[0].path
-                publishHTML(target: [
-                    reportDir: gatlingDir,
-                    reportFiles: 'index.html',
-                    reportName: 'Gatling Performance Report'
-                ])
+                def gatlingTarget = new File("${WORKSPACE}/events-api-tests/target/gatling")
+                def gatlingDir = gatlingTarget.listFiles().find { it.name.startsWith("mysimulation-") }
+                if (gatlingDir != null) {
+                    publishHTML(target: [
+                        reportDir: "events-api-tests/target/gatling/${gatlingDir.name}",
+                        reportFiles: 'index.html',
+                        reportName: 'Gatling Performance Report'
+                    ])
+                } else {
+                    echo "No Gatling report found."
+                }
             }
         }
         // success {

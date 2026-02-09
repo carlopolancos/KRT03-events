@@ -165,7 +165,7 @@
 			                <jsonFiles>
 			                    <param>target/karate-reports/*.json</param>
 			                </jsonFiles>
-			                <outputDirectory>target/karate-html-report</outputDirectory>
+			                <outputDirectory>target/karate-html-reports</outputDirectory>
 			            </configuration>
 			        </execution>
 			    </executions>
