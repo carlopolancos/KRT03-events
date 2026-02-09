@@ -44,17 +44,20 @@ pipeline {
 
             // Karate report
             publishHTML(target: [
-                reportDir: 'events-api-tests/target/cucumber-html-reports',
+                reportDir: 'events-api-tests/target/karate-html-reports',
                 reportFiles: 'overview-features.html',
                 reportName: 'Karate Test Report'
             ])
 
             // Gatling report
-            publishHTML(target: [
-                reportDir: 'events-api-tests/target/gatling/mysimulation-*',
-                reportFiles: 'index.html',
-                reportName: 'Gatling Performance Report'
-            ])
+            script {
+                def gatlingDir = findFiles(glob: 'events-api-tests/target/gatling/mysimulation-*')[0].path
+                publishHTML(target: [
+                    reportDir: gatlingDir,
+                    reportFiles: 'index.html',
+                    reportName: 'Gatling Performance Report'
+                ])
+            }
         }
         // success {
         //     dir("${WORKSPACE}/events-api-tests") {
