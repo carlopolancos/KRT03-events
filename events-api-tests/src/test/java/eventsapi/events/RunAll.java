@@ -38,7 +38,9 @@ class RunAll {
 			}
 		}
 		Results results = Runner.path("classpath:eventsapi/events/")
-				.outputCucumberJson(true).parallel(5);
+				.outputCucumberJson(true)
+				.outputJunitXml(true)
+				.parallel(5);
 		generateReport(results.getReportDir());
 		assertTrue(results.getFailCount() == 0, results.getErrorMessages());
 	}
