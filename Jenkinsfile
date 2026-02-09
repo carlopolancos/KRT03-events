@@ -41,34 +41,13 @@ pipeline {
             // Stop the API process
             bat 'taskkill /f /im java.exe /fi "WINDOWTITLE eq events-api-0.0.1-SNAPSHOT.jar"' // For Windows
             // Or use sh 'pkill -f "events-api-0.0.1-SNAPSHOT.jar"' for Linux/macOS
+        }
+          success {
+            dir("${WORKSPACE}/events-api-tests") {
+                junit 'target/karate-reports/*.xml'
+                cucumber 'target/karate-reports/*.json'
 
-            // Karate report
-            publishHTML(target: [
-                reportDir: 'events-api-tests/target/karate-html-reports',
-                reportFiles: 'overview-features.html',
-                reportName: 'Karate Test Report'
-            ])
-
-            // Gatling report
-            script {
-                def gatlingTarget = new File("${WORKSPACE}/events-api-tests/target/gatling")
-                def gatlingDir = gatlingTarget.listFiles().find { it.name.startsWith("mysimulation-") }
-                if (gatlingDir != null) {
-                    publishHTML(target: [
-                        reportDir: "events-api-tests/target/gatling/${gatlingDir.name}",
-                        reportFiles: 'index.html',
-                        reportName: 'Gatling Performance Report'
-                    ])
-                } else {
-                    echo "No Gatling report found."
-                }
             }
         }
-        // success {
-        //     dir("${WORKSPACE}/events-api-tests") {
-        //         // junit 'target/karate-reports/*.xml'
-        //         cucumber 'target/karate-reports/*.json'
-        //     }
-        // }
     }
 }
