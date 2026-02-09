@@ -56,11 +56,11 @@ pipeline {
                 reportName: 'Gatling Performance Report'
             ])
         }
-        success {
-            // dir("${WORKSPACE}/events-api-tests") {
-            //     // junit 'target/karate-reports/*.xml'
-            //     cucumber 'target/karate-reports/*.json'
-            // }
-        }
+        // success {
+        //     dir("${WORKSPACE}/events-api-tests") {
+        //         // junit 'target/karate-reports/*.xml'
+        //         cucumber 'target/karate-reports/*.json'
+        //     }
+        // }
     }
 }
