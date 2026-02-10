@@ -108,7 +108,7 @@
                 <version>${maven.surefire.version}</version>
                 <configuration>
                     <includes>
-                        <include>**/RunAll.java</include>
+                        <include>**/RunAllTest.java</include>
                     </includes>
                     <useModulePath>false</useModulePath>
                 </configuration>

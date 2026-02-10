@@ -2,7 +2,6 @@ package eventsapi.events;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +13,7 @@ import net.masterthought.cucumber.ReportBuilder;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.commons.io.FileUtils;
-class RunAll {
+class RunAllTest {
 	 @Test    
 	 public void testParallel() {
 		 
