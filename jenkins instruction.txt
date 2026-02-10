@@ -1,0 +1,9 @@
+-run Jenkins (java -Dhudson.model.DirectoryBrowserSupport.CSP="" -jar jenkins.war --httpPort=9090)
+-install plugin cucumber reports
+
+-generate personal access token (https://github.com/settings/apps), personal access token, token (classic), "eventsapi", 7days,  check repo, generate token, copy token
+-jenkins profile, credentials, system, global credentials, add credentials, username (github email), password (token), id ("github"), create
+
+-pipeline project type + name (eventsapi)
+-pipeline, definition -> pipeline script from SCM, SCM -> Git, paste repo URL, choose credential, branch to build (main), save
+-build now

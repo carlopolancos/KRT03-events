@@ -18,7 +18,7 @@ import net.masterthought.cucumber.ReportBuilder;
 
 import org.apache.commons.io.FileUtils;
 
-class RunAll {
+class RunAllTest {
 	
 	@Karate.Test
 	Karate testAllFeatures() {

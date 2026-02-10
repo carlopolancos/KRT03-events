@@ -28,7 +28,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // Run Karate tests against the API
-                dir("${WORKSPACE}/events-api-tests") {
+                dir("${WORKSPACE}/events-api-tests0") {
                     bat 'mvn test'
                     // Or use sh 'mvn test' for Linux/macOS
                 }
@@ -42,11 +42,24 @@ pipeline {
             bat 'taskkill /f /im java.exe /fi "WINDOWTITLE eq events-api-0.0.1-SNAPSHOT.jar"' // For Windows
             // Or use sh 'pkill -f "events-api-0.0.1-SNAPSHOT.jar"' for Linux/macOS
         }
-          success {
-            dir("${WORKSPACE}/events-api-tests") {
+        success {
+            dir("${WORKSPACE}/events-api-tests0") {
                 junit 'target/karate-reports/*.xml'
-                cucumber 'target/karate-reports/*.json'
+//                cucumber 'target/karate-reports/*.json'
 
+                // Archive Gatling Reports
+                // We archive the whole gatling directory to preserve CSS/JS for the HTML report
+                archiveArtifacts artifacts: 'target/gatling/**', allowEmptyArchive: true
+
+                // Optional: If you have the HTML Publisher plugin, you can expose the link in Jenkins UI
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/gatling',
+                    reportFiles: '**/index.html',
+                    reportName: 'Gatling Performance Report'
+                ])
             }
         }
     }
