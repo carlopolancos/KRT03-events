@@ -45,7 +45,7 @@ pipeline {
         success {
             dir("${WORKSPACE}/events-api-tests0") {
                 junit 'target/karate-reports/*.xml'
-//                cucumber 'target/karate-reports/*.json'
+                cucumber 'target/karate-reports/*.json'
 
                 // Archive Gatling Reports
                 // We archive the whole gatling directory to preserve CSS/JS for the HTML report
@@ -59,6 +59,15 @@ pipeline {
                     reportDir: 'target/gatling',
                     reportFiles: '**/index.html',
                     reportName: 'Gatling Performance Report'
+                ])
+
+                publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'target/karate-reports',
+                    reportFiles: '**/karate-summary.html',
+                    reportName: 'Karate Summary Report'
                 ])
             }
         }
