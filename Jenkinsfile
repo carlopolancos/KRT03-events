@@ -21,14 +21,14 @@ pipeline {
                     // Or use sh 'nohup java -jar events-api-0.0.1-SNAPSHOT.jar &' for Linux/macOS
                 }
                 // Wait for API to start (adjust the sleep duration as needed)
-                sleep 30
+                sleep 15
             }
         }
 
         stage('Run Tests') {
             steps {
                 // Run Karate tests against the API
-                dir("${WORKSPACE}/events-api-tests0") {
+                dir("${WORKSPACE}/events-api-tests") {
                     bat 'mvn test'
                     // Or use sh 'mvn test' for Linux/macOS
                 }
@@ -43,7 +43,7 @@ pipeline {
             // Or use sh 'pkill -f "events-api-0.0.1-SNAPSHOT.jar"' for Linux/macOS
         }
         success {
-            dir("${WORKSPACE}/events-api-tests0") {
+            dir("${WORKSPACE}/events-api-tests") {
                 junit 'target/karate-reports/*.xml'
                 cucumber 'target/karate-reports/*.json'
 
